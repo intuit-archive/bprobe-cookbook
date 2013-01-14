@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+default['boundary']['bprobe']['version'] = "1.0.0-1fi915"
+
 default['boundary']['bprobe']['bin']['path'] = "/usr/local"
 default['boundary']['bprobe']['etc']['path'] = "/etc/bprobe"
 

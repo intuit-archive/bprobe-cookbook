@@ -20,8 +20,6 @@
 # limitations under the License.
 #
 
-include_recipe "bprobe::dependencies"
-
 # create the meter in the boundary api
 bprobe node['fqdn'] do
   action :create
@@ -42,9 +40,10 @@ bprobe_certificates node['fqdn'] do
 end
 
 # install the bprobe package
-
-package "bprobe"
-
+package "bprobe" do
+  version "#{node['boundary']['bprobe']['version']}"
+end
+   
 # start the bprobe service
 service "bprobe" do
   supports value_for_platform(
