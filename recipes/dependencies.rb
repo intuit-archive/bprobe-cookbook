@@ -19,61 +19,6 @@
 # limitations under the License.
 #
 
-case node['platform']
-when "redhat", "centos", "amazon"
-
-  yum_key "RPM-GPG-KEY-boundary" do
-    url "https://yum.boundary.com/RPM-GPG-KEY-Boundary"
-    action :add
-  end
-
-  # default to 64bit
-  machine = "x86_64"
-
-  case node['kernel']['machine']
-  when "x86_64"
-    machine = "x86_64"
-  when "i686"
-    machine = "i386"
-  when "i386"
-    machine = "i386"
-  end
-
-  rhel_platform_version = node['platform'] == "amazon" ? "6" : node['platform_version']
-
-  yum_repository "boundary" do
-    name "boundary"
-    url "https://yum.boundary.com/centos/os/#{rhel_platform_version}/#{machine}/"
-    key "RPM-GPG-KEY-boundary"
-    action :add
-  end
-
-when "ubuntu"
-
-  package "apt-transport-https"
-
-  apt_repository "boundary" do
-    uri "https://apt.boundary.com/ubuntu/"
-    distribution node['lsb']['codename']
-    components ["universe"]
-    key "https://apt.boundary.com/APT-GPG-KEY-Boundary"
-    action :add
-  end
-
-when "debian"
-
-  package "apt-transport-https"
-
-  apt_repository "boundary" do
-    uri "https://apt.boundary.com/debian/"
-    distribution node['lsb']['codename']
-    components ["main"]
-    key "https://apt.boundary.com/APT-GPG-KEY-Boundary"
-    action :add
-  end
-
-end
-
 cookbook_file "#{Chef::Config[:file_cache_path]}/cacert.pem" do
   source "cacert.pem"
   mode 0600
