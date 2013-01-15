@@ -20,12 +20,6 @@
 # limitations under the License.
 #
 
-# set account information for the environment
-if node['feature_flag'].enabled? 'boundary'
-  node['boundary']['api']['key']    = node['app_env_settings']['boundary']['api_key']
-  node['boundary']['api']['org_id'] = node['app_env_settings']['boundary']['organization_id']
-end
-
 # create the meter in the boundary api
 bprobe node['fqdn'] do
   action :create
@@ -46,12 +40,10 @@ bprobe_certificates node['fqdn'] do
 end
 
 # install the bprobe package
-if node['feature_flag'].enabled? 'boundary'
-  package "bprobe" do
-    version "#{node['boundary']['bprobe']['version']}"
-  end
+package "bprobe" do
+  version "#{node['boundary']['bprobe']['version']}"
 end
-   
+
 # start the bprobe service
 service "bprobe" do
   supports value_for_platform(
