@@ -19,6 +19,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "bprobe::dependencies"
 
 # create the meter in the boundary api
 bprobe node['fqdn'] do
