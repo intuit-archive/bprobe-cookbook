@@ -10,4 +10,4 @@ version          "0.1.0"
 end
 
 depends "yum"
-depends "apt"
+depends "apt", "< 2.0.0"
