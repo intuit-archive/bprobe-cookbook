@@ -3,7 +3,7 @@ maintainer_email "richard_mendes@intuit.com"
 license          "Apache 2.0"
 description      "Installs/Configures bprobe"
 long_description "Installs/Configures bprobe"
-version          "0.1.0"
+version          "0.1.1"
 
 %w{ ubuntu centos amazon }.each do |os|
   supports os
