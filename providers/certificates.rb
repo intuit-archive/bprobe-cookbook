@@ -66,7 +66,7 @@ def download_certificate_request(new_resource)
           owner "root"
           group "root"
           content cert_response.body
-          notifies :restart, resources(:service => "bprobe")
+          notifies :restart, "service[bprobe]"
         end
       else
         Chef::Log.error("Could not download certificate (nil response)!")
@@ -94,7 +94,7 @@ def download_key_request(new_resource)
           owner "root"
           group "root"
           content key_response.body
-          notifies :restart, resources(:service => "bprobe")
+          notifies :restart, "service[bprobe]"
         end
       else
         Chef::Log.error("Could not download key (nil response)!")
