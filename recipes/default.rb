@@ -42,7 +42,7 @@ end
 
 # install the bprobe package
 package "bprobe" do
-  version "#{node['boundary']['bprobe']['version']}"
+  version node['boundary']['bprobe']['version']
 end
 
 # start the bprobe service
@@ -61,7 +61,7 @@ cookbook_file "#{node['boundary']['bprobe']['etc']['path']}/ca.pem" do
   mode 0600
   owner "root"
   group "root"
-  notifies :restart, resources(:service => "bprobe")
+  notifies :restart, "service[bprobe]"
 end
 
 # enforce the main config file
@@ -70,5 +70,5 @@ template "#{node['boundary']['bprobe']['etc']['path']}/bprobe.defaults" do
   mode 0644
   owner "root"
   group "root"
-  notifies :restart, resources(:service => "bprobe")
+  notifies :restart, "service[bprobe]"
 end
